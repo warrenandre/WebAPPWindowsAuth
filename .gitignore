@@ -1,0 +1,101 @@
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+bin/
+obj/
+MyNewApp/bin/
+MyNewApp/obj/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# StyleCop
+StyleCopReport.xml
+
+# Files built by Visual Studio
+.vscode/
+.vs/
+.vscode/
+.vscode-test/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code directories
+.vscode/
+.history/
+
+# Local History for Visual Studio
+.localhistory/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Rider settings
+.idea/
+
+# Rider project files
+*.sln.iml
+
+# Rider caches
+.idea/.idea_modules/
+.idea/.idea_modules.xml
+.idea/.idea_modules.iml
+.idea/.idea_modules.iml.xml
+
+# Rider workspace
+.idea/workspace.xml
+
+# Rider tasks
+.idea/tasks.xml
+
+# Rider run configurations
+.idea/runConfigurations/
+
+# Rider code styles
+.idea/codeStyles/
+
+# Rider dictionaries
+.idea/dictionaries/
+
+# Rider inspections
+.idea/inspectionProfiles/
+
+# Rider vcs.xml
+.idea/vcs.xml
+
+# Rider modules.xml
+.idea/modules.xml
