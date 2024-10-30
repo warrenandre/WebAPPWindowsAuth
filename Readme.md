@@ -12,25 +12,44 @@ This guide provides instructions on how to set up Windows Authentication to SQL 
 
 ## Steps
 
-1. **Set Up SQL Server**: Ensure SQL Server is installed and configured on your Red Hat server[_{{{CITATION{{{_1{cs12dotnet8/docs/sql-server/README.md at main - GitHub](https://github.com/markjprice/cs12dotnet8/blob/main/docs/sql-server/README.md).
+1. **Set Up SQL Server**: Ensure SQL Server is installed and configured.
 
-2. **Create a SQL Server Container**: Create a Docker container for SQL Server[_{{{CITATION{{{_2{labs/windows/sql-server/README.md at master - GitHub](https://github.com/docker/labs/blob/master/windows/sql-server/README.md).
-   ```sh
-   docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=YourStrongPassword' -p 1433:1433 --name sql_server_container -d mcr.microsoft.com/mssql/server:latest
+2. ** Create SPN for SQL Server**: Create a Service Principal Name (SPN) for the SQL Server instance.
 
-3. **Copy Keytab File to Container**: Copy the keytab file to the SQL Server container.
-   ```sh
-    docker cp your-keytab-file.keytab sql_server_container:/tmp/your-keytab-file.keytab
+```sh
+setspn -S MSSQLSvc/your-sql-server-hostname:1433 your_domain\your_sql_server_account
+```
 
-4. **Configure Kerberos**: Set the necessary environment variables on the Redhat server for Kerberos authentication.
+3. **Domain join Redhat Server to AD**: Join the Redhat server to the Active Directory domain.
 
-    docker exec -it sql_server_container /bin/bash
+```sh
+realm join --
+```
+
+4. **Test Domain integration on Redhat Server using kinit accountName@DOMAIN.CCOM**: Test the domain integration by running the kinit command with your account name.
+
+```sh
+kinit
+```
+
+
+
+5. **Configure Kerberos**: Set the necessary environment variables on the Redhat server for Kerberos authentication.
+
+    
     export KRB5CCNAME=FILE:/tmp/krb5cc
     export KRB5_KDC_PROFILE=/etc/krb5.conf
     export KRB5_CONFIG=/etc/krb5.conf
-    kinit -k -t /tmp/your-keytab-file.keytab your_username@YOUR.DOMAIN.COM
+    kinit your_username@YOUR.DOMAIN.COM
 
-5. **Create a .Net 8 App**: Create a .NET 8 app that uses Windows Authentication to connect to SQL Server
+6. **Confirm kerberos ticket**: Confirm that the Kerberos ticket has been created successfully and the cachec location matches what was configured above.
+
+```sh
+klist
+```
+
+
+7. **Create a .Net 8 App**: Create a .NET 8 app that uses Windows Authentication to connect to SQL Server
 
 public class Program
 {
@@ -55,6 +74,7 @@ public class Program
 6. **Run the Container**: Run the .NET 8 container app with the necessary mounts and environment variables
 
 docker run --rm -v /tmp/krb5cc:/tmp/krb5cc -e KRB5CCNAME=FILE:/tmp/krb5cc -p 8080:80 your_image_name
+
 
 roubleshooting
 Ensure the keytab file is correctly copied to the container.
