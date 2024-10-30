@@ -1,6 +1,6 @@
 # Windows Authentication to SQL Server on .NET 8 Container App
 
-This guide provides instructions on how to set up Windows Authentication to SQL Server using a .NET 8 container app running on a Red Hat server.
+This guide provides instructions on how to set up kerberos Windows Authentication to SQL Server using a .NET 8 container app running on a Red Hat server.
 
 ## Prerequisites
 
@@ -11,6 +11,7 @@ This guide provides instructions on how to set up Windows Authentication to SQL 
 - Keytab file for Kerberos authentication
 
 ## Steps
+
 
 1. **Set Up SQL Server**: Ensure SQL Server is installed and configured.
 
@@ -23,8 +24,12 @@ setspn -S MSSQLSvc/your-sql-server-hostname:1433 your_domain\your_sql_server_acc
 3. **Domain join Redhat Server to AD**: Join the Redhat server to the Active Directory domain.
 
 ```sh
+#packaged needed to domain join redhat server to windows domain
+yum install realmd oddjob oddjob-mkhomedir sssd adcli samba-common-tools krb5-workstation openldap-clients policycoreutils-python -y
 realm join --
 ```
+
+**https://learn.microsoft.com/en-us/azure-data-studio/enable-kerberos?view=sql-server-2017&tabs=ubuntu#join-your-os-to-the-active-directory-domain-controller&preserve-view=true**
 
 4. **Test Domain integration on Redhat Server using kinit accountName@DOMAIN.CCOM**: Test the domain integration by running the kinit command with your account name.
 
