@@ -38,7 +38,6 @@ kinit
 ```
 
 
-
 5. **Configure Kerberos**: Set the necessary environment variables on the Redhat server for Kerberos authentication.
 
     
@@ -81,7 +80,8 @@ public class Program
 docker run --rm -v /tmp/krb5cc:/tmp/krb5cc -e KRB5CCNAME=FILE:/tmp/krb5cc -p 8080:80 your_image_name
 
 
-roubleshooting
+**Troubleshooting (https://learn.microsoft.com/en-us/aspnet/core/security/authentication/windowsauth?view=aspnetcore-8.0&tabs=visual-studio#linux-and-macos-environment-configuration)**
+
 Ensure the keytab file is correctly copied to the container.
 
 Verify the Kerberos environment variables are set correctly.
